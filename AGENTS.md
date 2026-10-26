@@ -89,3 +89,13 @@ Push to the `release` branch to build signed installers for macOS (universal DMG
   GitHub profiles). Never hand-edit `contributors.json`.
 - Maintainers refresh the stats with `python3 ../../craftrules/scripts/contributors.py .` (it also
   re-verifies who wrote each `people.toml` entry; `--check` only verifies).
+
+## Repository-specific deterministic quality contract (2026-10-26)
+
+**Project:** Rust audio workstation and signal processing application.
+
+**Engineering requirements:** Protect sample-rate and buffer boundary invariants, channels, deterministic DSP golden samples and real-time thread safety.
+
+**Verification commands:** cargo fmt --all -- --check; cargo metadata --locked --no-deps --format-version 1; targeted cargo test.
+
+Only report checks as passed when run with actual evidence. Add regression tests for new behavior and boundary/error paths. Never delete/skip/weaken tests, hide failures or reduce thresholds to make CI pass. Require human review for changes to `QUALITY_GATES.md`, `AGENTS.md`, policy and workflows. Make `quality` a required branch status. Missing tooling or pre-existing failures must be disclosed. Preserve the original instructions.
